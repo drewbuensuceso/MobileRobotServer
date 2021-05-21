@@ -1,0 +1,9 @@
+Request Structures and the expected response:
+
+verification_request = {[img:"some_img_value"]} : verification_response = {[code=0, data="z1234", message="success"]}
+
+password_num_request = {[img:"some_img_value", len:"9", passwd:"020103"]} : password_num_response = {[code=0, data="[9,2,9,1,9,3]", msg="success"}
+
+password_letter_request = {[passwordLetterImg:"some_img_value", len:"26", passwd:"ah"]} : password_num_response = {[code=0, data="[2,1]", msg="success"}
+
+password_full_letter_request = {[passwordFullLetterImg:"some_img_value", len:"35", passwd:"ah1221"]} : password_full_letter_response = {[code=0, data="[11,15, 2, 1, 1, 2]", msg="sucess"]}
