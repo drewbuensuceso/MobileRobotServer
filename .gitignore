@@ -1,4 +1,1 @@
-*.pyc
-*.python-version
-*.traineddata
-.vscode/
+**/tessdata

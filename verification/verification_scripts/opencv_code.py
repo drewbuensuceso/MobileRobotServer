@@ -1,11 +1,6 @@
-import re
-
-from PIL import Image
 import cv2
-import numpy as np
-
 import pytesseract as pytesseract
-import os
+import position_solver as ps
 
 
 class OpencvCode:
@@ -37,13 +32,15 @@ class OpencvCode:
             resized_im1 = cv2.resize(img, None, fx=0.8, fy=0.8, interpolation=cv2.INTER_CUBIC)
             thresh = cv2.threshold(resized_im1, 100, maxval=255, type=cv2.THRESH_BINARY_INV)[1]
             th2 = cv2.medianBlur(thresh, 5)
-            keyboard = pytesseract.image_to_string(th2, config="-c tessedit_char_whitelist=0123456789 --oem 0 --psm 6 --tessdata-dir tessdata")
-            cv2.imwrite("thresholded_keyboard.png",th2)
-            print(keyboard)
+            keyb_string = pytesseract.image_to_string(th2, config="-c tessedit_char_whitelist=0123456789 --oem 0 --psm 6 --tessdata-dir tessdata")
+            keyboard = keyb_string.split(sep=None)[:10] #select first 10 characters from string and put in a list
+            #cv2.imwrite("thresholded_keyboard.png",th2)
+            data = ps.solve_numericalKeyb(keyboard,passwd)
             msg="success"
             code=0
         except:
             data=0
+            keyboard=0
             code = 1
             msg = "failed"
             print("pw_num_error")
@@ -57,8 +54,8 @@ class OpencvCode:
             thresh = cv2.threshold(resized_im1, 150, maxval=255, type=cv2.THRESH_BINARY_INV)[1]
             th2 = cv2.medianBlur(thresh, 3)
             keyboard = pytesseract.image_to_string(th2, config="-c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz --oem 0 --psm 6 --tessdata-dir tessdata") #can specify language here
-            cv2.imwrite("thresholded_keyboard.png",th2)
-            print(keyboard)
+            #cv2.imwrite("thresholded_keyboard.png",th2)
+            data = ps.solve_letterKeyb(keyboard,passwd)
             msg="success"
             code=0
         except:
@@ -76,8 +73,8 @@ class OpencvCode:
             thresh = cv2.threshold(resized_im1, 150, maxval=255, type=cv2.THRESH_BINARY_INV)[1]
             th2 = cv2.medianBlur(thresh, 5)
             keyboard = pytesseract.image_to_string(th2, config="-c tessedit_char_whitelist=ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz --oem 0 --psm 6 --tessdata-dir tessdata")
-            cv2.imwrite("thresholded_keyboard.png",th2)
-            print(keyboard)
+            #cv2.imwrite("thresholded_keyboard.png",th2)
+            data = ps.solve_fullLetterKeyb(keyboard,passwd)
             msg="success"
             code=0
         except:

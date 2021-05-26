@@ -1,9 +1,18 @@
-import db
+import os.path
 import pandas as pd
+import db
 from flask import Flask, render_template 
 
 app = Flask(__name__)
 port = 8686
+
+SAVE_PATH = "../devices/"
+# {[IP:"192.168.88.10", accountAlias="xxxx-jake-0876", device="123124123"]} #sample request file output
+
+def generate_deviceInfo(ipaddr, accountAlias, device, device_id):
+    file_path = os.path.join(SAVE_PATH, device_id + ".json")
+    req_dict = pd.DataFrame([[ipaddr, accountAlias, device]], columns=['ip', 'accountAlias', 'device'])
+    req_dict.to_json(file_path, orient="records")
 
 def create_log(log, accountAlias, device):
     query = "INSERT INTO logs VALUES {LOG}, {ACCOUNT_ALIAS}, {DEVICE}".format(LOG=log, ACCOUNT_ALIAS=accountAlias, DEVICE=device)
