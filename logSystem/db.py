@@ -5,9 +5,10 @@
 
 import mysql.connector as mc
 import pandas as pd
+import json 
 
 def db_connect():
-    cnx = mc.connect(user='root', password='root',
+    cnx = mc.connect(user='root', password='password',
                               host='localhost',
                               database='mobileRobotServer')
     return(cnx)
@@ -17,13 +18,20 @@ def execute_query(query):
     try:
         conn = db_connect()
         cursor = conn.cursor()
-        if "SELECT" in query:
-            result = pd.read_sql(sql=query, con=conn)
-        else:
-            cursor.execute(query)
+    
+        cursor.execute(query)
+        row_headers=[x[0] for x in cursor.description]
+        rv = cursor.fetchall()
+        json_data = []
+
+        for result in rv:
+            json_data.append(dict(zip(row_headers,result)))
 
     except mc.Error as e:
         print(e)
-
     finally:
-        return result, cursor.close(),conn.close()
+        cursor.close()
+        conn.close()
+
+
+    return json_data
