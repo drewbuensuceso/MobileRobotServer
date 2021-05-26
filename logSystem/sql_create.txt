@@ -1,0 +1,13 @@
+"""
+'CREATE TABLE `logs` (
+  `log_id` int NOT NULL,
+  `timestamp` varchar(45) DEFAULT NULL,
+  `log` varchar(45) DEFAULT NULL,
+  `accountAlias` varchar(45) DEFAULT NULL,
+  `device_id` varchar(45) DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `img` blob,
+  PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci'
+
+"""
