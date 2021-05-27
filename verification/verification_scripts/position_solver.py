@@ -12,29 +12,17 @@ def solve_numericalKeyb(keyboard,password):
     numkeyb = numkeyb_layout.split(sep=None)
     keyb_dict = dict(zip(keyboard,numkeyb))
     data = [keyb_dict.get(key) for key in password]
-<<<<<<< HEAD
     return data
-=======
-    return(data)
->>>>>>> 3682571a6dcfe37b1c70efae1eb88c30725d793e
 
 def solve_letterKeyb(keyboard, password):
     letterKeyb = letterKeyb_layout.split(sep=None)
     keyb_dict = dict(zip(keyboard,letterKeyb))
     data = [keyb_dict.get(key) for key in password]
-<<<<<<< HEAD
     return data
-=======
-    return(data)
->>>>>>> 3682571a6dcfe37b1c70efae1eb88c30725d793e
 
 def solve_fullLetterKeyb(keyboard, password):
     cpkeyb_values = fullLetterKeyb_layout.split(sep=None)
     cpkeyb_index = list(range(0,len(cpkeyb_values)))
     keyb_dict = dict(zip(cpkeyb_values,cpkeyb_index))
     data = [keyb_dict.get(key) for key in password]
-<<<<<<< HEAD
     return data
-=======
-    return(data)
->>>>>>> 3682571a6dcfe37b1c70efae1eb88c30725d793e
