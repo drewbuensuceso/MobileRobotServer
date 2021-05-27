@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title>Log System</title>
+  </head>
+  <body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+            <span class="fs-4">Log</span>
+          </a>
+    
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Devices</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Statements</a></li>
+
+          </ul>
+        </header>
+        
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for log in logs %}
+                <div class="col">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <strong>Device ID</strong>: {{ log.device_id}} | <strong>IP</strong> {{ log.ip_address}}
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ log.timestamp}} </h5>
+                            <p class="card-text">{{ log.accountAlias}} </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}    
+          </div>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+  </body>
+</html>

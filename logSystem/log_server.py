@@ -2,7 +2,10 @@ import os.path
 from numpy import tracemalloc_domain
 import pandas as pd
 import db
-from datetime import datetime
+from flask import Flask, render_template 
+
+app = Flask(__name__)
+port = 8686
 
 SAVE_PATH = "../devices/"
 # {[IP:"192.168.88.10", accountAlias="xxxx-jake-0876", device="123124123"]} #sample request file output
@@ -74,10 +77,16 @@ def delete_log(log_id,device): #deletes a log by id
     query = "DELETE FROM logs WHERE log_id = {logId}".format(logId=log_id)
     return db.execute_query(query)
 
-def read_log(limit): #read logs
+def read_log(limit=50):
     query = "SELECT * FROM logs LIMIT {numlimit}".format(numlimit=limit)
     data = db.execute_query(query)
     return data
+
+
+@app.route('/logs', methods=['GET'])
+def logs_index():
+    return render_template('index.html', logs=read_log())
+    
 
 if __name__ == "__main__":
     #generate_file("192.168.88.25", "xxxx-jake-0876", "123124123", "sxs1223")
@@ -85,3 +94,4 @@ if __name__ == "__main__":
     #print(datetime.now())
     ##verification("thisisadummyvcimgstring", "aw121", "xx-Ray-xx", "123124123", "192.168.88.25", "2021-05-25 12:25:03")
     ##verification("thisisadummyvcimgstring", "aw121", "xx-Ray-xx", "123124123", "192.168.88.25", "2021-05-25 12:25:03")
+    app.run(host='0.0.0.0', port=port, debug=True)
