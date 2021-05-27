@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% set active_page = 'verification' %}
+{% block title %} Logs {%endblock%}
+{% block content %}
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for log in logs %}
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-header">
+                    <strong>Device ID</strong>: {{ log.device_id}} | <strong>IP</strong> {{ log.ip_address}}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ log.accountAlias}} </p>
+                    <p class="card-text">keyboard: '090706' </p>
+                    <p class="card-text">position: '[9, 6, 9, 10, 7]' </p>
+                    <h5 class="card-title">{{ log.timestamp}} </h5>
+                    <img src="static/images/image1.jpeg" maxwidth="100%" srcset="">
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-center">
+                <div class="card-header">
+                    <strong>Device ID</strong>: {{ log.device_id}} | <strong>IP</strong> {{ log.ip_address}}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ log.accountAlias}} </p>
+                    <p class="card-text">keyboard: '090706' </p>
+                    <p class="card-text">position: '[9, 6, 9, 10, 7]' </p>
+                    <h5 class="card-title">{{ log.timestamp}} </h5>
+                    <img src="static/images/image2.jpeg" maxwidth="100%" srcset="">
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}    
+</div>
+{% endblock %}

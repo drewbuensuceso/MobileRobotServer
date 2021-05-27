@@ -2,7 +2,7 @@ import os.path
 from numpy import tracemalloc_domain
 import pandas as pd
 import db
-from flask import Flask, render_template 
+from flask import Flask, render_template, url_for
 
 app = Flask(__name__)
 port = 8686
@@ -83,9 +83,21 @@ def read_log(limit=50):
     return data
 
 
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('base.html')
+
 @app.route('/logs', methods=['GET'])
-def logs_index():
-    return render_template('index.html', logs=read_log())
+def logs():
+    return render_template('logs.html', logs=read_log())
+
+@app.route('/verification', methods=['GET'])
+def verification():
+    return render_template('verification.html', logs=read_log())
+
+@app.route('/statements', methods=['GET'])
+def statements():
+    return render_template('statements.html', logs=read_log())
     
 
 if __name__ == "__main__":
