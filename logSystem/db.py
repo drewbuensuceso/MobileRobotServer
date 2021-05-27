@@ -21,6 +21,7 @@ def execute_query(query):
             result = pd.read_sql(sql=query, con=conn)
         else:
             cursor.execute(query)
+            conn.commit()
 
     except mc.Error as e:
         print(e)
