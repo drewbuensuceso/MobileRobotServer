@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% set active_page = 'transactions' %}
+{% block title %}Transactions{%endblock%}
+
+{% block content %}
+<table id="table_id" class="display text-center">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>bankAccount</th>
+            <th>transType</th>
+            <th>transAmount</th>
+            <th>postscript</th>
+            <th>customerAccount</th>
+            <th>branch</th>
+            <th>transferor/transferee</th>
+            <th>transTime</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaction in transactions %}
+            <tr>
+                <td>{{ transaction._id}}</td>
+                <td>{{ transaction.bankAccount }}</td>
+                <td>{{ transaction.trans.transType }}</td>
+                <td>{{ transaction.trans.transAmount }}</td>
+                <td>{{ transaction.trans.postscript }}</td>
+                <td>{{ transaction.trans.customerAccount }}</td>
+                <td>{{ transaction.trans.branch }}</td>
+                <td>{{ transaction.trans.extensions.card }}</td>
+                <td>{{ transaction.trans.transTime }}</td>
+
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var table =  $('#table_id').DataTable();
+</script>
+{% endblock %}

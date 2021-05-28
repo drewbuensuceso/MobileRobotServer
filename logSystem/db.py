@@ -18,15 +18,14 @@ def execute_query(query):
     try:
         conn = db_connect()
         cursor = conn.cursor()
-
         cursor.execute(query)
-        row_headers=[x[0] for x in cursor.description]
-        rv = cursor.fetchall()
-        json_data = []
-
-        for result in rv:
-            json_data.append(dict(zip(row_headers,result)))
-
+        if 'SELECT' in query:
+            row_headers=[x[0] for x in cursor.description]
+            rv = cursor.fetchall()
+            json_data = []
+            for result in rv:
+                json_data.append(dict(zip(row_headers,result)))
+        conn.commit()
     except mc.Error as e:
         print(e)
     finally:

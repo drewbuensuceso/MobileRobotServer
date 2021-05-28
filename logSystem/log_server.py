@@ -2,7 +2,8 @@ import os.path
 from numpy import tracemalloc_domain
 import pandas as pd
 import db
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for,request
+import datetime
 
 app = Flask(__name__)
 port = 8686
@@ -87,6 +88,15 @@ def read_log(limit=50):
 def index():
     return render_template('base.html')
 
+@app.route('/capture_device', methods=['POST'])
+def capture_device():
+    data = request.form
+    now = datetime.datetime.now()
+    
+    txt(data.get('log', ''), data.get('accountAlias', ''), data.get('device_id', ''), data.get('ip', ''), now.strftime('%Y-%m-%d %H:%M:%S') )
+    return {'message': 'success'}
+
+
 @app.route('/logs', methods=['GET'])
 def logs():
     return render_template('logs.html', logs=read_log())
@@ -98,6 +108,131 @@ def verification():
 @app.route('/statements', methods=['GET'])
 def statements():
     return render_template('statements.html', logs=read_log())
+
+@app.route('/update', methods=['GET'])
+def update():
+    return render_template('update.html')
+
+@app.route('/transactions', methods=['GET'])
+def transactions():
+    transactions = [
+        {
+            "_id": 1,
+            "token": "",
+            "bankAccount": "xxxx-jake-0876",
+            "balance": "5000000000",
+            "trans": 
+                {
+                    "transType": "1",
+                    "transAmount": "12312312",
+                    "name": "ray",
+                    "balance": "5000000000",
+                    "postscript": "for loan",
+                    "customerAccount": "8838",
+                    "branch": "makati",
+                    "extensions": {
+                        "mode": "",
+                        "summary": "",
+                        "channel": "",
+                        "card": "BOC"
+                    },
+                    "transTime": datetime.datetime.now()
+                }
+        },
+        {
+        "_id": 2,
+        "token": "",
+        "bankAccount": "xxxx-jake-0876",
+        "balance": "1000000",
+        "trans": 
+            {
+                "transType": "2",
+                "transAmount": "12312312",
+                "name": "payne",
+                "balance": "1000000",
+                "postscript": "for credit",
+                "customerAccount": "1234",
+                "branch": "legaspi",
+                "extensions": {
+                    "mode": "",
+                    "summary": "",
+                    "channel": "",
+                    "card": "CCB"
+                },
+                "transTime": datetime.datetime.now()
+            }
+        },
+        {
+        "_id": 3,
+        "token": "",
+        "bankAccount": "xxxx-jake-0876",
+        "balance": "25.55",
+        "trans": 
+            {
+                "transType": "2",
+                "transAmount": "2131231",
+                "name": "ray",
+                "balance": "25.55",
+                "postscript": "payment",
+                "customerAccount": "5678",
+                "branch": "manila",
+                "extensions": {
+                    "mode": "",
+                    "summary": "",
+                    "channel": "",
+                    "card": "BOC"
+                },
+                "transTime": datetime.datetime.now()
+            }
+        },
+        {
+        "_id": 4,
+        "token": "",
+        "bankAccount": "xxxx-jake-0876",
+        "balance": "1231231",
+        "trans": 
+            {
+                "transType": "1",
+                "transAmount": "5552",
+                "name": "ray",
+                "balance": "1231231",
+                "postscript": "for loan",
+                "customerAccount": "5542",
+                "branch": "pasig",
+                "extensions": {
+                    "mode": "",
+                    "summary": "",
+                    "channel": "",
+                    "card": "CCB"
+                },
+                "transTime": datetime.datetime.now()
+            }
+        },
+        {
+        "_id": 5,
+        "token": "",
+        "bankAccount": "xxxx-jake-0876",
+        "balance": "214515215151251",
+        "trans": 
+            {
+                "transType": "2",
+                "transAmount": "12131231",
+                "name": "payne",
+                "balance": "214515215151251",
+                "postscript": "for credit",
+                "customerAccount": "9084",
+                "branch": "makati",
+                "extensions": {
+                    "mode": "",
+                    "summary": "",
+                    "channel": "",
+                    "card": "makati"
+                },
+                "transTime": datetime.datetime.now()
+            }
+        } 
+    ]
+    return render_template('transactions.html', transactions=transactions)
     
 
 if __name__ == "__main__":
