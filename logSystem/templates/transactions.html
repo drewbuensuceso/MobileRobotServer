@@ -19,18 +19,23 @@
     </thead>
     <tbody>
         {% for transaction in transactions %}
+
+        {% for trans in transaction.trans %}
             <tr>
                 <td>{{ transaction._id}}</td>
                 <td>{{ transaction.bankAccount }}</td>
-                <td>{{ transaction.trans.transType }}</td>
-                <td>{{ transaction.trans.transAmount }}</td>
-                <td>{{ transaction.trans.postscript }}</td>
-                <td>{{ transaction.trans.customerAccount }}</td>
-                <td>{{ transaction.trans.branch }}</td>
-                <td>{{ transaction.trans.extensions.card }}</td>
-                <td>{{ transaction.trans.transTime }}</td>
+                <td>{{ trans.transType }}</td>
+                <td>{{ trans.transAmount }}</td>
+                <td>{{ trans.postscript }}</td>
+                <td>{{ trans.customerAccount }}</td>
+                <td>{{ trans.branch }}</td>
+                <td>{{ trans.extensions.card }}</td>
+                <td>{{ trans.transTime }}</td>
 
             </tr>
+        {% endfor %}
+
+            
         {% endfor %}
     </tbody>
 </table>

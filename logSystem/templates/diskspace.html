@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %} Disk Space {%endblock%}
+{% set active_page = 'diskspace' %}
+{% block content %}
+
+<div class="row">
+    <p>Free Disk Space Check</p>
+    <div class="progress" style="height: 40px;">
+        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <p>Remaining Date</p>
+    <div class="dropdown" style="width: 100px">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+          30 Days
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+    </div>
+    <div class="btn-group">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <label class="form-check-label" for="inlineRadio1">Image</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">Text</label>
+        </div>
+    </div>
+    <button class="btn btn-primary btn-block" style="width: 25%">Clean Up</button>
+</div>
+
+{% endblock %}

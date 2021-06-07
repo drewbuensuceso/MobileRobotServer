@@ -18,20 +18,29 @@
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
           <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-            <span class="fs-4">Log</span>
+            <span class="fs-4">{{ session['language']['title'] }}</span>
           </a>
-    
           <ul class="nav nav-pills">
-            <li class="nav-item"><a href="{{ url_for('logs') }}" class="nav-link {% if active_page == 'logs' %}active{%endif%}" aria-current="page">Devices</a></li>
-            <li class="nav-item"><a href="{{ url_for('statements') }}" class="nav-link {% if active_page == 'statements' %}active{%endif%}">Statements</a></li>
-            <li class="nav-item"><a href="{{ url_for('verification') }}" class="nav-link {% if active_page == 'verification' %}active{%endif%}">Verification</a></li>
-            <li class="nav-item"><a href="{{ url_for('transactions') }}" class="nav-link {% if active_page == 'transactions' %}active{%endif%}">Transactions</a></li>
-            <li class="nav-item"><a href="{{ url_for('update') }}" class="nav-link {% if active_page == 'update' %}active{%endif%}">Update</a></li>
-
+            <li class="nav-item"><a href="{{ url_for('logs') }}" class="nav-link {% if active_page == 'logs' %}active{%endif%}" aria-current="page">{{ session['language']['devices'] }}</a></li>
+            <li class="nav-item"><a href="{{ url_for('statements') }}" class="nav-link {% if active_page == 'statements' %}active{%endif%}">{{ session['language']['statements'] }}</a></li>
+            <li class="nav-item"><a href="{{ url_for('verification') }}" class="nav-link {% if active_page == 'verification' %}active{%endif%}">{{ session['language']['verification'] }}</a></li>
+            <li class="nav-item"><a href="{{ url_for('transactions') }}" class="nav-link {% if active_page == 'transactions' %}active{%endif%}">{{ session['language']['transactions'] }}</a></li>
+            <li class="nav-item"><a href="{{ url_for('upgrade') }}" class="nav-link {% if active_page == 'upgrade' %}active{%endif%}">{{ session['language']['update'] }}</a></li>
+            <li class="nav-item"><a href="{{ url_for('diskspace') }}" class="nav-link {% if active_page == 'diskspace' %}active{%endif%}">{{ session['language']['diskspace'] }}</a></li>
           </ul>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ session['language']['lang'] }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="#">EN</a></li>
+              <li><a class="dropdown-item" href="#">CN</a></li>
+            </ul>
+          </div>
         </header>
         
         {% block content %}
+        {{ session }}
 
         {% endblock %}
       </div>
@@ -39,6 +48,13 @@
       <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
       <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+      <script>
+            $('.dropdown-menu li a').click(function(e){
+                $.post("{{ url_for('set_lang') }}", {'lang': $(this).text()}, function(response){
+                    location.reload()
+                })
+            })
+      </script>
     {% block scripts %}
 
     {% endblock %}
